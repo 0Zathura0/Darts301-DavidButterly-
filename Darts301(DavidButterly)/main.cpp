@@ -135,19 +135,11 @@ int main()
 	player1->setaccuracy(accuracy);
 
 
-	bool p1s = 0;
+	int p1s = 0;
 	cout << "would you like for this player to use stratagy?: 0 for no 1 for yes" << endl;
 	cin >> p1s;
 
-	if (p1s == 0)
-	{
-		p1s = false;
-	}
-	else
-	{
-		p1s = true;
-	}
-
+	player1->setstrat(p1s);
 
 
 
@@ -167,11 +159,11 @@ int main()
 
 
 
-	bool p2s = 0;
+	int p2s = 0;
 	cout << "would you like for this player to use stratagy?: 0 for no 1 for yes" << endl;
 	cin >> p2s;
 
-
+	player2->setstrat(p2s);
 
 
 	//setting up the player arrays
@@ -223,6 +215,9 @@ int main()
 		//infinite loop untill broken--------------------------------------
 		while (true)
 		{
+
+
+
 			//set win condition to activate when a player reaches 7 sets--------------------------------------------
 			if (PlayerArray[0]->getSetsWon() == 7 || PlayerArray[1]->getSetsWon() == 7)
 			{
@@ -255,9 +250,36 @@ int main()
 
 
 
-			
-			//if the score is above 50 go for bull untill < 50 is reached-----------------
-			if (PlayerArray[current]->getscore() >= 50)
+
+
+			//if enemy is ahead by large margin, risk it for a biscuit----------------- these first 3 should activate when the player has strat enabled.
+
+			if (PlayerArray[!current]->getscore() <= 150 && PlayerArray[current]->getscore() > 250 && PlayerArray[current]->getstrat() == 1)
+			{
+
+				int target = 20;
+				score = PlayerArray[current]->getscore() - throw_treble(target, PlayerArray[current]->getaccuracy());
+				PlayerArray[current]->setscore(score);
+
+
+
+			}
+			else if (PlayerArray[!current]->getscore() <= 100 && PlayerArray[current]->getscore() >= 190 && PlayerArray[current]->getstrat() == 1)
+			{
+				int target = 20;
+				score = PlayerArray[current]->getscore() - throw_treble(target, PlayerArray[current]->getaccuracy());
+				PlayerArray[current]->setscore(score);
+
+			}
+			else if (PlayerArray[!current]->getscore() <= 50 && PlayerArray[current]->getscore() >= 150 && PlayerArray[current]->getstrat() == 1)
+			{
+				int target = 20;
+				score = PlayerArray[current]->getscore() - throw_treble(target, PlayerArray[current]->getaccuracy());
+				PlayerArray[current]->setscore(score);
+
+			}
+
+			else if (PlayerArray[current]->getscore() >= 50)
 			{
 
 				score = PlayerArray[current]->getscore() - throw_bull(PlayerArray[current]->getaccuracy());
@@ -265,12 +287,11 @@ int main()
 
 			}
 
-
 			//if less than 50 and odd----------------------------------------
 			else if (PlayerArray[current]->getscore() < 50 && PlayerArray[current]->getscore() % 2 != 0) // im using the % to determine if the score is even or odd, 0 means even !0 means odd				{
 			{		//if the number is odd then set target to 1 to get back to an even number as the only way to win is by a double.
-				
-				
+
+
 				int target = 1;
 
 				score = PlayerArray[current]->getscore() - throw_single(target, PlayerArray[current]->getaccuracy());
@@ -301,13 +322,13 @@ int main()
 			//the below section of code checks if the score is greater than 0 and not == 1
 
 
-			
+
 
 			//if less than 50 and even-----------------------------------------
 			else if (PlayerArray[current]->getscore() < 50 && PlayerArray[current]->getscore() % 2 == 0)
 			{
 
-				
+
 				//devide the score by 2, as it is even then use that as the target.
 				int target = PlayerArray[current]->getscore() / 2;
 
@@ -321,7 +342,7 @@ int main()
 				}
 				//if the scoore is in fact either 1 or somehow less than 0 loop untill it is not.
 				else if (score == 1)
-					{
+				{
 
 
 				}
@@ -339,8 +360,14 @@ int main()
 					PlayerArray[1]->resetscore();
 				}
 
+
 			}
-			
+
+		
+
+
+
+
 
 
 

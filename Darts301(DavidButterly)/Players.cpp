@@ -78,3 +78,16 @@ void Players::setgames(int newgame)
 {
 	gameswon = newgame;
 };
+
+
+int Players::getstrat()
+{
+
+	return strat;
+};
+
+void Players::setstrat(int newstrat)
+{
+	strat = newstrat;
+
+}

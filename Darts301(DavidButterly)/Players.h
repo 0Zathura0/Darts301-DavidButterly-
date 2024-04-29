@@ -22,6 +22,10 @@ private:
 	//declaring games won
 	int gameswon = 0;
 
+
+	//declare strat
+	int strat = 0;
+
 public:
 	Players(std::string PlayersName);
 	~Players();
@@ -42,6 +46,9 @@ public:
 
 	int getgames();
 	void setgames(int newgame);
+
+	int getstrat();
+	void setstrat(int newstrat);
 
 
 };
