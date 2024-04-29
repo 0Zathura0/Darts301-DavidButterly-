@@ -274,31 +274,31 @@ int main()
 				int target = 1;
 
 				score = PlayerArray[current]->getscore() - throw_single(target, PlayerArray[current]->getaccuracy());
+				if (score != 1 && score > 0)
+				{
+					PlayerArray[current]->setscore(score);
+
+				}
+				//if the scoore is in fact 1 do nothing, to simulate keepig score what it was prior to 1
+				else if (score == 1)
+				{
+
+
+				}
+				else if (score < 0)
+				{
+
+				}
+
+				//if the score is 0 add 1 to sets won and reset the score
+				else if (score == 0)
+				{
+					PlayerArray[current]->setSetsWon(1);
+					PlayerArray[0]->resetscore();
+					PlayerArray[1]->resetscore();
+				}
 			}
 			//the below section of code checks if the score is greater than 0 and not == 1
-			if (score != 1 && score > 0)
-			{
-				PlayerArray[current]->setscore(score);
-
-			}
-			//if the scoore is in fact 1 do nothing, to simulate keepig score what it was prior to 1
-			else if (score == 1)
-			{
-				
-
-			}
-			else if(score < 0)
-			{
-
-			}
-
-			//if the score is 0 add 1 to sets won and reset the score
-			else if (score == 0)
-			{
-				PlayerArray[current]->setSetsWon(1);
-				PlayerArray[0]->resetscore();
-				PlayerArray[1]->resetscore();
-			}
 
 
 			
@@ -333,87 +333,14 @@ int main()
 				}
 				else if (score == 0)
 				{
-					PlayerArray[current]->setSetsWon(1);
-					PlayerArray[0]->resetscore();
-					PlayerArray[1]->resetscore();
-				}
 
-
-
-			}
-
-			//if less than 10 and odd-------------------------
-			else if (PlayerArray[current]->getscore() < 10 && PlayerArray[current]->getscore() % 2 != 0)
-			{
-
-
-				int target = 1;
-				score = PlayerArray[current]->getscore() - throw_single(target, PlayerArray[current]->getaccuracy());
-
-
-				//the below section of code checks if the score is greater than 0 and not == 1
-				if (score != 1 && score > 0)
-				{
-					PlayerArray[current]->setscore(score);
-
-				}
-				//if the scoore is in fact either 1 or somehow less than 0 loop untill it is not.
-				else if (score == 1)
-				{
-
-
-				}
-				else if (score < 0)
-					{
-
-
-				}
-				else if (score == 0)
-				{
 					PlayerArray[current]->setSetsWon(1);
 					PlayerArray[0]->resetscore();
 					PlayerArray[1]->resetscore();
 				}
 
 			}
-
-			//if less than or equil to 10 and even-----------------------------------
-			else if (PlayerArray[current]->getscore() <= 10 && PlayerArray[current]->getscore()%2 == 0)
-			{
-
-
-				int target = PlayerArray[current]->getscore() / 2;
-
-				score = PlayerArray[current]->getscore() - throw_double(target, PlayerArray[current]->getaccuracy());
-
-				//the below section of code checks if the score is greater than 0 and not == 1
-				if (score != 1 && score > 0)
-				{
-					PlayerArray[current]->setscore(score);
-
-				}
-				//if the scoore is in fact either 1 or somehow less than 0 loop untill it is not.
-				
-				
-				if (score < 0)
-				{
-
-				}
-				
-				
-				if (score == 0)
-				{
-					PlayerArray[current]->setSetsWon(1);
-					PlayerArray[0]->resetscore();
-					PlayerArray[1]->resetscore();
-				}
-
-			}
-
-
 			
-			cout << PlayerArray[0]->getscore() << " | " << PlayerArray[1]->getscore() << endl;
-
 
 
 
@@ -439,12 +366,6 @@ int main()
 
 
 	}
-
-
-
-
-
-
 
 	//to remove from heap
 	delete player1, player2;
